@@ -12,6 +12,7 @@ body {
   position: relative;
   animation: gradientShift 10s ease infinite;
   perspective: 1500px;
+  cursor: url('assets/magic-cursor.png'), auto;
 }
 
 @keyframes gradientShift {
@@ -33,6 +34,23 @@ body {
   cursor: pointer;
   transition: transform 0.6s ease, box-shadow 0.6s ease;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: glow 3s infinite, slideIn 2s ease-out forwards;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(233, 30, 99, 0.5); }
+  50% { box-shadow: 0 0 40px rgba(233, 30, 99, 1); }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-200px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 #envelope:hover {
@@ -68,6 +86,9 @@ body {
 .poem {
   white-space: pre-wrap;
   color: #333;
+  overflow: visible;
+  border-right: none;
+  text-shadow: 0 0 10px rgba(233, 30, 99, 0.5), 0 0 20px rgba(233, 30, 99, 0.3);
 }
 
 @keyframes fadeIn {
@@ -142,14 +163,17 @@ body {
   0% {
     transform: scale(0);
     opacity: 1;
+    background: radial-gradient(circle, #ff9a9e, rgba(255, 255, 255, 0));
   }
   50% {
     transform: scale(1.5);
     opacity: 0.8;
+    background: radial-gradient(circle, #fad0c4, rgba(255, 255, 255, 0));
   }
   100% {
     transform: scale(0);
     opacity: 0;
+    background: radial-gradient(circle, #fbc2eb, rgba(255, 255, 255, 0));
   }
 }
 
@@ -170,5 +194,130 @@ body {
   }
   50% {
     opacity: 1;
+  }
+}
+
+.mystical-fog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  opacity: 0.5;
+  animation: fogMove 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes fogMove {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-45%, -55%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.reset-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  animation: buttonGlow 2s infinite alternate;
+}
+
+.reset-button:hover {
+  background: #d81b60;
+  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.6);
+}
+
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(233, 30, 99, 1);
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  opacity: 0.8;
+  transform: rotate(45deg);
+  animation: shootingStar 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: translate(-200px, -200px) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100vw, 100vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.click-wave {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(233, 30, 99, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: waveExpand 1s ease-out forwards;
+}
+
+@keyframes waveExpand {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+  }
+}
+
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  animation: auroraMove 10s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes auroraMove {
+  0% {
+    transform: translateX(-10%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(10%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-10%) translateY(-10%);
   }
 }
