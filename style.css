@@ -1,37 +1,64 @@
 body {
   margin: 0;
   padding: 0;
-  background: url('assets/background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Georgia', serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+  background-size: 400% 400%;
+  font-family: 'Playfair Display', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
+  position: relative;
+  animation: gradientShift 10s ease infinite;
+  perspective: 1500px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .container {
   text-align: center;
   position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  animation: float 6s ease-in-out infinite;
 }
 
 #envelope {
   width: 250px;
   cursor: pointer;
-  transition: transform 0.6s;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#envelope:hover {
+  transform: scale(1.1) rotateY(15deg) rotateX(5deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .letter {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid #e91e63;
-  padding: 20px;
+  padding: 30px;
   width: 80%;
   max-width: 400px;
   margin: 20px auto;
   border-radius: 15px;
-  font-size: 1.1rem;
-  animation: fadeIn 1s ease-in-out forwards;
+  font-size: 1.2rem;
+  font-family: 'Dancing Script', cursive;
+  color: #4a4a4a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1.5s ease-in-out forwards, float 3s ease-in-out infinite;
   display: none;
+  line-height: 1.8;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transform: rotateX(10deg);
 }
 
 .letter.hidden {
@@ -39,27 +66,109 @@ body {
 }
 
 .poem {
-  color: #333;
   white-space: pre-wrap;
+  color: #333;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .volume-control {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
+  font-family: 'Playfair Display', serif;
+  z-index: 2;
 }
 
 #volume-slider {
   width: 150px;
-  margin-top: 5px;
+  margin-top: 10px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: #e91e63;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border: 2px solid #e91e63;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border: 2px solid #e91e63;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0));
+  border-radius: 50%;
+  animation: sparkle 5s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+#background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.5));
+  z-index: 0;
+  animation: pulse 6s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
 }
